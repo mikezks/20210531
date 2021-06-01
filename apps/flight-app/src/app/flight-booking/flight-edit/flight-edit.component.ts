@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectRouteParams } from '../../+state';
 
 @Component({
   selector: 'app-flight-edit',
@@ -10,7 +12,9 @@ export class FlightEditComponent implements OnInit {
   showDetails: string;
   showWarning = false;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store) {
   }
 
   ngOnInit() {
@@ -18,6 +22,8 @@ export class FlightEditComponent implements OnInit {
       this.id = p['id'];
       this.showDetails = p['showDetails'];
     });
+
+    this.store.select(selectRouteParams).subscribe(console.log);
   }
 
 }
