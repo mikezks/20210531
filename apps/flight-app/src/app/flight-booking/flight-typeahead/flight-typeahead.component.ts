@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Flight } from '@flight-workspace/flight-lib';
-import { Observable, of } from 'rxjs';
-import { debounceTime, delay, distinctUntilChanged, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { iif, Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 @Component({
   selector: 'flight-workspace-flight-typeahead',
@@ -28,20 +28,28 @@ export class FlightTypeaheadComponent implements OnInit {
     //   - Trigger
     //   - Data Provider
     this.flights$ = this.control.valueChanges.pipe(
+      // Stream 3: Data/State Provider
       withLatestFrom(dataProvider),
-      // Filter START
       map(([trigger, state]) => trigger),
-      filter(from => from.length > 2),
+      // Filter START
       debounceTime(300),
       distinctUntilChanged(),
       // Filter END
-      // Side Effect
-      tap(_ => this.loading = true),
-      // Connect 2nd Stream
-      switchMap(from => this.load(from)),
-      delay(1000),
-      // Side Effect
-      tap(_ => this.loading = false)
+      // Conditional Streams with cancellation
+      switchMap(from =>
+        iif(
+          () => from.length > 2,
+          of(from).pipe(
+            // Side Effect
+            tap(_ => this.loading = true),
+            // Connect 2nd Stream
+            switchMap(from => this.load(from)),
+            // Side Effect
+            tap(_ => this.loading = false)
+          ),
+          of([])
+        )
+      )
     );
 
     const flightsCount$ = this.flights$.pipe(
