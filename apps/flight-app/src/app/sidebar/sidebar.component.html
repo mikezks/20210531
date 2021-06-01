@@ -1,49 +1,59 @@
-<div class="sidebar-wrapper">
-  <div class="logo">
-    <a class="simple-text">
-      <div class="logo-img">
-        <img src="../../assets/img/angular2-logo.png" alt="">
-      </div>
-      Flight42
-    </a>
+<ng-container *ngIf="{
+  count: flightsCount$ | async
+} as state">
+
+  <div class="sidebar-wrapper">
+    <div class="logo">
+      <a class="simple-text">
+        <div class="logo-img">
+          <img src="../../assets/img/angular2-logo.png" alt="">
+        </div>
+        Flight42
+      </a>
+    </div>
+    <ul class="nav">
+      <li routerLinkActive="active">
+        <a routerLink="home">
+          <i class="ti-home"></i>
+          <p>Home</p>
+        </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a routerLink="flight-booking/flight-search">
+          <i class="ti-arrow-top-right"></i>
+          <p>Flights
+            <span class="badge badge-pill badge-info">
+              {{ state.count }}
+            </span>
+          </p>
+        </a>
+      </li>
+
+      <li routerLinkActive="active">
+          <a routerLink="mf-passenger">
+              <i class="ti-user"></i>
+              <p>MF Passenger</p>
+          </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a [routerLink]="[{outlets: { aux: 'basket'  }}]">
+          <i class="ti-shopping-cart"></i>
+          <p>Basket</p>
+        </a>
+      </li>
+
+      <!--
+          <li routerLinkActive="active">
+          <a>
+              <i class="ti-close"></i>
+              <p>Hide Basket</p>
+          </a>
+          </li>
+      -->
+
+    </ul>
   </div>
-  <ul class="nav">
-    <li routerLinkActive="active">
-      <a routerLink="home">
-        <i class="ti-home"></i>
-        <p>Home</p>
-      </a>
-    </li>
 
-    <li routerLinkActive="active">
-      <a routerLink="flight-booking/flight-search">
-        <i class="ti-arrow-top-right"></i>
-        <p>Flights</p>
-      </a>
-    </li>
-
-    <li routerLinkActive="active">
-        <a routerLink="mf-passenger">
-            <i class="ti-user"></i>
-            <p>MF Passenger</p>
-        </a>
-    </li>
-
-    <li routerLinkActive="active">
-      <a [routerLink]="[{outlets: { aux: 'basket'  }}]">
-        <i class="ti-shopping-cart"></i>
-        <p>Basket</p>
-      </a>
-    </li>
-
-    <!--
-        <li routerLinkActive="active">
-        <a>
-            <i class="ti-close"></i>
-            <p>Hide Basket</p>
-        </a>
-        </li>
-    -->
-
-  </ul>
-</div>
+</ng-container>

@@ -2,6 +2,7 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import {Component, OnInit} from '@angular/core';
 import {FlightService} from '@flight-workspace/flight-lib';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'flight-search',
@@ -29,6 +30,7 @@ export class FlightSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    // timer(0, 1000).subscribe(console.log);
   }
 
   search(): void {

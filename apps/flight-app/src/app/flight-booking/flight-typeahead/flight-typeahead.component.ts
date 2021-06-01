@@ -61,13 +61,13 @@ export class FlightTypeaheadComponent implements OnInit {
     const headers = new HttpHeaders()
                         .set('Accept', 'application/json');
 
-    // return this.http.get<Flight[]>(url, {params, headers});
-    return of([{
+    return this.http.get<Flight[]>(url, {params, headers});
+    /* return of([{
       id: 999,
       from: 'New York',
       to: 'Paris',
       date: new Date().toISOString(),
       delayed: true
-    }]);
+    }]); */
   }
 }
