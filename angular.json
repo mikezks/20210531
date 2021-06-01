@@ -42,7 +42,7 @@
       "prefix": "flight-workspace",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:browser",
           "options": {
             "outputPath": "dist/apps/flight-app",
             "index": "apps/flight-app/src/index.html",
@@ -66,7 +66,9 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "extraWebpackConfig": "apps/flight-app/webpack.config.js",
+            "commonChunk": false
           },
           "configurations": {
             "production": {
@@ -94,18 +96,22 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "extraWebpackConfig": "apps/flight-app/webpack.prod.config.js"
             }
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "options": {
-            "browserTarget": "flight-app:build"
+            "browserTarget": "flight-app:build",
+            "extraWebpackConfig": "apps/flight-app/webpack.config.js",
+            "port": 4200
           },
           "configurations": {
             "production": {
-              "browserTarget": "flight-app:build:production"
+              "browserTarget": "flight-app:build:production",
+              "extraWebpackConfig": "apps/flight-app/webpack.prod.config.js"
             }
           }
         },
@@ -125,11 +131,14 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/flight-app"],
+          "builder": "ngx-build-plus:karma",
+          "outputs": [
+            "coverage/apps/flight-app"
+          ],
           "options": {
             "jestConfig": "apps/flight-app/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "extraWebpackConfig": "apps/flight-app/webpack.config.js"
           }
         }
       }
@@ -155,7 +164,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/flight-app-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/flight-app-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -189,7 +200,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/flight-lib"],
+          "outputs": [
+            "coverage/libs/flight-lib"
+          ],
           "options": {
             "jestConfig": "libs/flight-lib/jest.config.js",
             "passWithNoTests": true
@@ -226,7 +239,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/logger-lib"],
+          "outputs": [
+            "coverage/libs/logger-lib"
+          ],
           "options": {
             "jestConfig": "libs/logger-lib/jest.config.js",
             "passWithNoTests": true
@@ -263,7 +278,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/dashboard-lib"],
+          "outputs": [
+            "coverage/libs/dashboard-lib"
+          ],
           "options": {
             "jestConfig": "libs/dashboard-lib/jest.config.js",
             "passWithNoTests": true
@@ -289,7 +306,9 @@
               "apps/flight-admin/src/favicon.ico",
               "apps/flight-admin/src/assets"
             ],
-            "styles": ["apps/flight-admin/src/styles.css"],
+            "styles": [
+              "apps/flight-admin/src/styles.css"
+            ],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -356,7 +375,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/flight-admin"],
+          "outputs": [
+            "coverage/apps/flight-admin"
+          ],
           "options": {
             "jestConfig": "apps/flight-admin/jest.config.js",
             "passWithNoTests": true
@@ -385,7 +406,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/flight-admin-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/flight-admin-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -408,7 +431,9 @@
               "apps/dashboard/src/favicon.ico",
               "apps/dashboard/src/assets"
             ],
-            "styles": ["apps/dashboard/src/styles.css"],
+            "styles": [
+              "apps/dashboard/src/styles.css"
+            ],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -475,7 +500,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/dashboard"],
+          "outputs": [
+            "coverage/apps/dashboard"
+          ],
           "options": {
             "jestConfig": "apps/dashboard/jest.config.js",
             "passWithNoTests": true
@@ -504,7 +531,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/dashboard-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/dashboard-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -527,7 +556,9 @@
               "apps/external/src/favicon.ico",
               "apps/external/src/assets"
             ],
-            "styles": ["apps/external/src/styles.css"],
+            "styles": [
+              "apps/external/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -588,7 +619,9 @@
         },
         "test": {
           "builder": "ngx-build-plus:karma",
-          "outputs": ["coverage/apps/external"],
+          "outputs": [
+            "coverage/apps/external"
+          ],
           "options": {
             "jestConfig": "apps/external/jest.config.js",
             "passWithNoTests": true
@@ -617,7 +650,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/external-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/external-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -645,7 +680,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/passenger/domain"],
+          "outputs": [
+            "coverage/libs/passenger/domain"
+          ],
           "options": {
             "jestConfig": "libs/passenger/domain/jest.config.js",
             "passWithNoTests": true
@@ -760,7 +797,9 @@
         },
         "test": {
           "builder": "ngx-build-plus:karma",
-          "outputs": ["coverage/apps/passenger"],
+          "outputs": [
+            "coverage/apps/passenger"
+          ],
           "options": {
             "jestConfig": "apps/passenger/jest.config.js",
             "passWithNoTests": true,
@@ -790,7 +829,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/passenger-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/passenger-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -818,7 +859,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/passenger/feature-search"],
+          "outputs": [
+            "coverage/libs/passenger/feature-search"
+          ],
           "options": {
             "jestConfig": "libs/passenger/feature-search/jest.config.js",
             "passWithNoTests": true
@@ -858,7 +901,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/passenger/feature-edit"],
+          "outputs": [
+            "coverage/libs/passenger/feature-edit"
+          ],
           "options": {
             "jestConfig": "libs/passenger/feature-edit/jest.config.js",
             "passWithNoTests": true
@@ -898,7 +943,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/luggage/domain"],
+          "outputs": [
+            "coverage/libs/luggage/domain"
+          ],
           "options": {
             "jestConfig": "libs/luggage/domain/jest.config.js",
             "passWithNoTests": true
@@ -934,7 +981,9 @@
               "apps/luggage/src/favicon.ico",
               "apps/luggage/src/assets"
             ],
-            "styles": ["apps/luggage/src/styles.scss"],
+            "styles": [
+              "apps/luggage/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -999,7 +1048,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/luggage"],
+          "outputs": [
+            "coverage/apps/luggage"
+          ],
           "options": {
             "jestConfig": "apps/luggage/jest.config.js",
             "passWithNoTests": true
@@ -1028,7 +1079,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/luggage-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/luggage-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -1056,7 +1109,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/luggage/feature-checkin"],
+          "outputs": [
+            "coverage/libs/luggage/feature-checkin"
+          ],
           "options": {
             "jestConfig": "libs/luggage/feature-checkin/jest.config.js",
             "passWithNoTests": true
