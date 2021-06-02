@@ -20,6 +20,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { PassengersModule } from './passengers/passengers.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
     BrowserModule,
     HttpClientModule,
     FlightBookingModule,
+    PassengersModule,
 
     BrowserAnimationsModule,
     FlightCancellingModule,
