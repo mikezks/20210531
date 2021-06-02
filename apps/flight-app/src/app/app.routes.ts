@@ -18,12 +18,12 @@ export const APP_ROUTES: Routes = [
     loadChildren: () => import('./flight-booking/flight-booking.module')
       .then(esm => esm.FlightBookingModule)
   },
-  {
+  /* {
     path: 'mf-passenger',
-    loadChildren: () => import('passenger/xmodule')
+    loadChildren: () => import('passenger/module')
       .then(esm => esm.PassengerModule)
       .catch(_ => FlightBookingModule)
-  },
+  }, */
   {
     path: 'basket',
     component: BasketComponent,

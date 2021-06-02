@@ -23,7 +23,7 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       remotes: {
-        "passenger": "passenger@http://localhost:3000/remoteEntry.js",
+        // "passenger": "passenger@http://localhost:3000/remoteEntry.js",
       },
       shared: {
         "@angular/core": { singleton: true, strictVersion: true, requiredVersion: '^12.0.0' },

@@ -1,1 +1,1 @@
-declare module 'passenger/xmodule';
+declare module 'passenger/module';
