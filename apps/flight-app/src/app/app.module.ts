@@ -27,7 +27,7 @@ import { PassengersModule } from './passengers/passengers.module';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FlightBookingModule,
+    // FlightBookingModule,
     PassengersModule,
 
     BrowserAnimationsModule,
